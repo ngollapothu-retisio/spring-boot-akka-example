@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <conversionRule conversionWord="coloredLevel" converterClass="com.lightbend.lagom.internal.logback.ColoredLevel" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",UTC} [%highlight(%level)] [%yellow(%thread)] %class{0}.%M %L - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="STDOUT" />
+        <includeCallerData>true</includeCallerData>
+    </appender>
+    <!-- Set logging for all Akka library classes to INFO -->
+    <logger name="akka" level="WARN" />
+    <logger name="org.apache.kafka" level="WARN" />
+    <root level="INFO">
+        <appender-ref ref="ASYNCSTDOUT" />
+    </root>
+</configuration>
